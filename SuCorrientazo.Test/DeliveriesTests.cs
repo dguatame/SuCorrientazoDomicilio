@@ -97,7 +97,6 @@ namespace SuCorrientazoDomicilio.Test
             Assert.That(ex.Message, Is.EqualTo("El listado de direcciones está vacío"));
         }
 
-
         [Test()]
         public void ShouldChangeCardinalPoint_SetCardinalPoint()
         {
@@ -248,6 +247,42 @@ namespace SuCorrientazoDomicilio.Test
             Assert.AreEqual(expected.CardinalPoint, actual.CardinalPoint);
         }
 
+        [Test()]
+        public void WrongStatementInTestS4N()
+        {
+            List<string> deliveries = new List<string> {
+                "AAAAIAA",
+                "DDDAIAD",
+                "AAIADAD"
+            };
 
+            List<string> expected = new List<string> {
+                "(-2,4) dirección NORTE",
+                "(-3.3) dirección SUR",
+                "(-4,2) dirección ESTE"
+            };
+
+            List<string> actual = MainClass.Deliver(deliveries);
+            Assert.AreNotEqual(expected, actual);
+        }
+
+        [Test()]
+        public void SuccessStatementInTestS4N()
+        {
+            List<string> deliveries = new List<string> {
+                "AAAAIAA",
+                "DDDAIAD",
+                "AAIADAD"
+            };
+
+            List<string> expected = new List<string> {
+                "(-2,4) dirección OESTE",
+                "(-1,3) dirección SUR",
+                "(0,0) dirección OESTE"
+            };
+
+            List<string> actual = MainClass.Deliver(deliveries);
+            Assert.AreEqual(expected, actual);
+        }
     }
 }
