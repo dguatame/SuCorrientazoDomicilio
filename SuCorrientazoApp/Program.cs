@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using SuCorrientazoApp.Models;
 
 namespace SuCorrientazoApp
@@ -19,7 +22,27 @@ namespace SuCorrientazoApp
 
         public static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            List<string> files = Directory.EnumerateFiles("../../AppData/In/", "*.txt").ToList();
+            if (!files.Any())
+                File.WriteAllText($"../../AppData/Out/error.txt", "No hay archivos en la ruta indicada.");
+
+            Parallel.ForEach(files, (file) => {
+                List<string> deliveries = File.ReadAllLines(file).ToList();
+                string dronNumber = Regex.Match(file, @"\d+").Value;
+
+                if (!deliveries.Any())
+                    throw new Exception($"El archivo del dron {dronNumber} está vacío");
+
+                try
+                {
+                    CheckDeliveries(deliveries);
+                    //todo agregar el método para las entregas
+                }
+                catch (Exception ex)
+                {
+                    File.WriteAllText($"../../AppData/Out/out{dronNumber}.txt", ex.Message);
+                }
+            });
         }
 
         public static void CheckDeliveries(List<string> deliveries)
@@ -112,7 +135,8 @@ namespace SuCorrientazoApp
                                 break;
                         }
                     }
-                    //todo crear el método que cambia la posición cardinal
+                    else
+                        SetCardinalPoint(step, position);
                 }
             }
             return true;
@@ -133,6 +157,21 @@ namespace SuCorrientazoApp
                 }
             }
             return true;
+        }
+
+        public static void SetCardinalPoint(char direction, PositionModel position)
+        {
+            if (direction == ' ')
+                throw new Exception("El comando viene vacío");
+
+            if (!_allowedOptions.Contains(direction))
+                throw new Exception($"{direction} no es un comando válido");
+
+            int index = Array.IndexOf(_cardinalPoints, position.CardinalPoint);
+            if (direction == 'I')
+                position.CardinalPoint = _cardinalPoints[(index + _cardinalPoints.Length - 1) % _cardinalPoints.Length];
+            else if (direction == 'D')
+                position.CardinalPoint = _cardinalPoints[(index + 1) % _cardinalPoints.Length];
         }
     }
 }
