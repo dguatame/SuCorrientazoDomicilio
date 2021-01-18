@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.808.4
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuCorrientazoApp", "SuCorrientazoApp\SuCorrientazoApp.csproj", "{24A6D344-6F97-4F58-8450-255F4478C474}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuCorrientazo.Test", "SuCorrientazo.Test\SuCorrientazo.Test.csproj", "{DBDF1D73-BD44-4703-950C-FED5110A25A5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|anycpu = Debug|anycpu
@@ -15,6 +17,10 @@ Global
 		{24A6D344-6F97-4F58-8450-255F4478C474}.Debug|anycpu.Build.0 = Debug|anycpu
 		{24A6D344-6F97-4F58-8450-255F4478C474}.Release|anycpu.ActiveCfg = Release|anycpu
 		{24A6D344-6F97-4F58-8450-255F4478C474}.Release|anycpu.Build.0 = Release|anycpu
+		{DBDF1D73-BD44-4703-950C-FED5110A25A5}.Debug|anycpu.ActiveCfg = Debug|Any CPU
+		{DBDF1D73-BD44-4703-950C-FED5110A25A5}.Debug|anycpu.Build.0 = Debug|Any CPU
+		{DBDF1D73-BD44-4703-950C-FED5110A25A5}.Release|anycpu.ActiveCfg = Release|Any CPU
+		{DBDF1D73-BD44-4703-950C-FED5110A25A5}.Release|anycpu.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
